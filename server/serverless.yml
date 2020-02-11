@@ -50,6 +50,9 @@ functions:
       - http:
           method: post
           path: api-key
+          cors:
+            origin: "http://localhost:3000"
+            allowCredentials: true
 
 resources:
   Resources:
