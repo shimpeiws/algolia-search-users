@@ -1,4 +1,4 @@
-import { APIGatewayProxyHandler } from "aws-lambda";
+import { APIGatewayProxyHandler, APIGatewayEvent } from "aws-lambda";
 import { DynamoDB } from "aws-sdk";
 import { v1 } from "uuid";
 import { DateTime } from "luxon";
@@ -127,5 +127,26 @@ export const index: APIGatewayProxyHandler = async () => {
   return {
     statusCode: 200,
     body: ""
+  };
+};
+
+export const securedApiKey: APIGatewayProxyHandler = async (
+  event: APIGatewayEvent
+) => {
+  const body = JSON.parse(event.body);
+  const companyId = body.companyId;
+  const client = algolia(
+    process.env.ALGOLIA_APPLICATION_ID,
+    process.env.ALGOLIA_ADMIN_API_KEY
+  );
+  const publicKey = client.generateSecuredApiKey(
+    process.env.ALGOLIA_SEARCH_ONLY_API_KEY,
+    {
+      filters: `companyId:${companyId}`
+    }
+  );
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ key: publicKey })
   };
 };
