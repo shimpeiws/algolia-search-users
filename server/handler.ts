@@ -116,6 +116,9 @@ export const index: APIGatewayProxyHandler = async () => {
     process.env.ALGOLIA_ADMIN_API_KEY
   );
   const index = client.initIndex(process.env.USERS_INDEX_NAME);
+  index.setSettings({
+    attributesForFaceting: ["companyId"]
+  });
   await index.addObjects(
     res.Items.map(object => {
       return {
