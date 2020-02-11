@@ -2,6 +2,7 @@ import { APIGatewayProxyHandler } from "aws-lambda";
 import { DynamoDB } from "aws-sdk";
 import { v1 } from "uuid";
 import { DateTime } from "luxon";
+import * as algolia from "algoliasearch";
 
 export const hello: APIGatewayProxyHandler = async event => {
   return {
@@ -97,6 +98,32 @@ export const seed: APIGatewayProxyHandler = async () => {
     const res = await client.put(params).promise();
     console.info("res", res);
   }
+  return {
+    statusCode: 200,
+    body: ""
+  };
+};
+
+export const index: APIGatewayProxyHandler = async () => {
+  const dynamoClient = new DynamoDB.DocumentClient();
+  const params = {
+    TableName: process.env.USERS_DB_NAME
+  };
+  const res = await dynamoClient.scan(params).promise();
+
+  const client = algolia(
+    process.env.ALGOLIA_APPLICATION_ID,
+    process.env.ALGOLIA_ADMIN_API_KEY
+  );
+  const index = client.initIndex(process.env.USERS_INDEX_NAME);
+  await index.addObjects(
+    res.Items.map(object => {
+      return {
+        ...object,
+        objectID: object.userId
+      };
+    })
+  );
   return {
     statusCode: 200,
     body: ""
