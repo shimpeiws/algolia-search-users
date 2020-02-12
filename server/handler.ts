@@ -116,6 +116,9 @@ export const index: APIGatewayProxyHandler = async () => {
     process.env.ALGOLIA_ADMIN_API_KEY
   );
   const index = client.initIndex(process.env.USERS_INDEX_NAME);
+  index.setSettings({
+    attributesForFaceting: ["companyId"]
+  });
   await index.addObjects(
     res.Items.map(object => {
       return {
@@ -147,6 +150,10 @@ export const securedApiKey: APIGatewayProxyHandler = async (
   );
   return {
     statusCode: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "http://localhost:3000",
+      "Access-Control-Allow-Credentials": true
+    },
     body: JSON.stringify({ key: publicKey })
   };
 };
