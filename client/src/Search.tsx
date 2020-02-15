@@ -50,6 +50,9 @@ export default function Search(_: RouteComponentProps) {
                 <h2>companyId</h2>
                 <RefinementList attribute="companyId" />
                 <Configure hitsPerPage={8} />
+                <h2>gender</h2>
+                <RefinementList attribute="gender" />
+                <Configure hitsPerPage={8} />
               </div>
               <div className="right-panel">
                 <SearchBox />
