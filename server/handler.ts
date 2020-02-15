@@ -117,7 +117,7 @@ export const index: APIGatewayProxyHandler = async () => {
   );
   const index = client.initIndex(process.env.USERS_INDEX_NAME);
   index.setSettings({
-    attributesForFaceting: ["companyId"]
+    attributesForFaceting: ["companyId", "gender"]
   });
   await index.addObjects(
     res.Items.map(object => {
