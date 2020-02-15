@@ -11,6 +11,7 @@ import {
   Configure,
   Pagination
 } from "react-instantsearch-dom";
+import { CreatedAtRangeInput } from "./components/CreatedAtRangeInput";
 
 export default function Search(_: RouteComponentProps) {
   const [searchClient, setSearchClient] = React.useState({});
@@ -53,6 +54,7 @@ export default function Search(_: RouteComponentProps) {
                 <h2>gender</h2>
                 <RefinementList attribute="gender" />
                 <Configure hitsPerPage={8} />
+                <CreatedAtRangeInput attribute="createdAt" />
               </div>
               <div className="right-panel">
                 <SearchBox />

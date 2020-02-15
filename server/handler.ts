@@ -71,7 +71,7 @@ const createdAt = () => {
     getRandom(0, 23),
     getRandom(0, 59)
   );
-  return dt.valueOf();
+  return dt.toSeconds();
 };
 
 const userData = () => {
@@ -117,7 +117,7 @@ export const index: APIGatewayProxyHandler = async () => {
   );
   const index = client.initIndex(process.env.USERS_INDEX_NAME);
   index.setSettings({
-    attributesForFaceting: ["companyId", "gender"]
+    attributesForFaceting: ["companyId", "gender", "createdAt"]
   });
   await index.addObjects(
     res.Items.map(object => {
