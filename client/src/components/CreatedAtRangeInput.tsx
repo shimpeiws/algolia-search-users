@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connectRange } from "react-instantsearch-dom";
 import { DateTime } from "luxon";
+import styled from "styled-components";
 
 interface OwnProps {
   currentRefinement: any;
@@ -9,6 +10,10 @@ interface OwnProps {
   precision: any;
   refine: any;
 }
+
+const StyledInput = styled.input`
+  font-size: 1.2rem;
+`;
 
 const RangeInput: React.FC<OwnProps> = ({
   currentRefinement,
@@ -23,7 +28,7 @@ const RangeInput: React.FC<OwnProps> = ({
   }
   return (
     <form>
-      <input
+      <StyledInput
         type="date"
         min={min}
         max={max}
@@ -41,7 +46,7 @@ const RangeInput: React.FC<OwnProps> = ({
         }}
       />
       {" - "}
-      <input
+      <StyledInput
         type="date"
         min={min}
         max={max}
