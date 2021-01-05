@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "algoliasearch": "^3.34.10",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "connected-react-router": "^6.7.0",
     "luxon": "^1.22.0",
     "react": "^16.12.0",
