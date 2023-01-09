@@ -9,7 +9,7 @@
   "dependencies": {
     "algoliasearch": "^3.34.10",
     "aws-sdk": "^2.615.0",
-    "luxon": "^1.22.0",
+    "luxon": "^1.28.1",
     "uuid": "^3.4.0"
   },
   "devDependencies": {
